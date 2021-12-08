@@ -32,7 +32,6 @@ int main()
             sum2 += std::stoi(line.substr(line.find_last_of(" ") + 1));
         else if (!strcmp(cmd.c_str(), "up"))
             sum2 -= std::stoi(line.substr(line.find_last_of(" ") + 1));
-        std::cout << "Wykonano" << std::endl;
     }
 
     std::cout << sum1 * sum2 << std::endl;
