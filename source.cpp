@@ -21,20 +21,40 @@ int main()
     }
     else std::cout << "Error!" << std::endl;
 
-    int sum1 = 0;
-    int sum2 = 0;
+    int horizontalPos = 0;
+    int depth = 0;
     for (const auto& line : fileData)
     {
         std::string cmd = line.substr(0, line.find_last_of(" "));
+        int cmdValue = std::stoi(line.substr(line.find_last_of(" ") + 1));
         if (!strcmp(cmd.c_str(), "forward"))
-            sum1 += std::stoi(line.substr(line.find_last_of(" ") + 1));
+            horizontalPos += cmdValue;
         else if (!strcmp(cmd.c_str(), "down"))
-            sum2 += std::stoi(line.substr(line.find_last_of(" ") + 1));
+            depth += cmdValue;
         else if (!strcmp(cmd.c_str(), "up"))
-            sum2 -= std::stoi(line.substr(line.find_last_of(" ") + 1));
+            depth -= cmdValue;
     }
+    std::cout << horizontalPos * depth << std::endl;
 
-    std::cout << sum1 * sum2 << std::endl;
+    horizontalPos = 0;
+    depth = 0;
+    int aim = 0;
+    for (const auto& line : fileData)
+    {
+        std::string cmd = line.substr(0, line.find_last_of(" "));
+        int cmdValue = std::stoi(line.substr(line.find_last_of(" ") + 1));
+        if (!strcmp(cmd.c_str(), "forward"))
+        {
+            horizontalPos += cmdValue;
+            if (aim)
+                depth += aim * cmdValue;
+        }
+        else if (!strcmp(cmd.c_str(), "down"))
+            aim += cmdValue;
+        else if (!strcmp(cmd.c_str(), "up"))
+            aim -= cmdValue;
+    }
+    std::cout << horizontalPos * depth << std::endl;
 
     std::cin.get();
     return 0;
